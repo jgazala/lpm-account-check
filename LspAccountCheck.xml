@@ -7,9 +7,10 @@
   <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
   <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
-  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp|lsp2" />
-  <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="lexma|bcorp|zcorp|tc" />
-  <UserPref name="joe" display_name="Joe Names" datatype="string" required="true" default_value="Joe|Jodat|Jamil|Gazala" />
+  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="server1|server2" />
+  <UserPref name="joeServers" display_name="Joe Servers" datatype="string" required="true" default_value="server1|server2" />
+  <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="customer1|customer2|customer3" />
+  <UserPref name="joeCustomers" display_name="Joe Customers" datatype="string" required="true" default_value="customer1|customer2|customer3" />
   
   <Content type="html">
   <![CDATA[
@@ -26,11 +27,15 @@
         // var joeCustomers = prefs.getString("joeCustomers");
         var servers = prefs.getArray("servers"); 
         var customers = prefs.getArray("customers");
-        var joe = prefs.getString("joe");  
-	  	alert("Joe Names are: " + joe);
-	  	var joeSplit = joe.split('|');
-	  	customers = joeSplit;
+
+        var joeServers = prefs.getString("joeServers");  
+	  	alert("Joe Servers are: " + joeServers);
+	  	servers = joeServers.split('|');	  	
 	  	
+        var joeCustomers = prefs.getString("joeCustomers");  
+	  	alert("Joe Customers are: " + joeCustomers);
+	  	customers = joeCustomers.split('|');	  	
+
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
         if (servers.length == 0)
