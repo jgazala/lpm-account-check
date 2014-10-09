@@ -7,8 +7,7 @@
   <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
   <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
-  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="server1|server2" />
-  <UserPref name="joeServers" display_name="Joe Servers" datatype="string" required="true" default_value="server1|server2" />
+  <UserPref name="servers" display_name="Servers" datatype="string" required="true" default_value="server1|server2" />
   <UserPref name="customers" display_name="Customers" datatype="string" required="true" default_value="customer1|customer2|customer3" />
   
   <Content type="html">
@@ -23,14 +22,13 @@
 
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
-        var servers = prefs.getArray("servers"); 
         
-        var joeServers = prefs.getString("joeServers");  
-	  	alert("Joe Servers are: " + joeServers);
-	  	servers = joeServers.split('|');	  	
+        var serversString = prefs.getString("servers");  
+	  	alert("Servers are: " + serversString);
+	  	var servers = serversString.split('|');	  	
 	  	
         var customersString = prefs.getString("customers");  
-	  	alert("Joe Customers are: " + customersString);
+	  	alert("Customers are: " + customersString);
         var customers = customersString.split('|');	  	
 
         var msg = "";
