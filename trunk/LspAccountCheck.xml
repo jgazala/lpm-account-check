@@ -9,7 +9,6 @@
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
   <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="server1|server2" />
   <UserPref name="joeServers" display_name="Joe Servers" datatype="string" required="true" default_value="server1|server2" />
-  <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="customer1|customer2|customer3" />
   <UserPref name="joeCustomers" display_name="Joe Customers" datatype="string" required="true" default_value="customer1|customer2|customer3" />
   
   <Content type="html">
@@ -26,7 +25,6 @@
         // Get the array of Servers and Customers entered by the admin
         // var joeCustomers = prefs.getString("joeCustomers");
         var servers = prefs.getArray("servers"); 
-        var customers = prefs.getArray("customers");
 
         var joeServers = prefs.getString("joeServers");  
 	  	alert("Joe Servers are: " + joeServers);
@@ -34,7 +32,7 @@
 	  	
         var joeCustomers = prefs.getString("joeCustomers");  
 	  	alert("Joe Customers are: " + joeCustomers);
-	  	customers = joeCustomers.split('|');	  	
+        var customers = joeCustomers.split('|');	  	
 
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
