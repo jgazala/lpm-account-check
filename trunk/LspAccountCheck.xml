@@ -7,8 +7,8 @@
   <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
   <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
-  <UserPref name="servers" display_name="Servers" datatype="string" required="true" default_value="lsp|lsp2" />
-  <UserPref name="customers" display_name="Customers" datatype="string" required="true" default_value="lexma|bcorp|zcorp|tc" />
+  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp|lsp2" />
+  <UserPref name="joecustomers" display_name="Customers" datatype="string" required="true" default_value="lexma|bcorp|zcorp|tc" />
   
   <Content type="html">
   <![CDATA[
@@ -22,9 +22,10 @@
 
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
-        var servers = prefs.getString("servers").toArray();
-        var customers = prefs.getString("customers").toArray();
-          
+        // var joeCustomers = prefs.getString("joeCustomers");
+        var servers = prefs.getArray("servers"); 
+        var customers = prefs.getString("joecustomers").toArray();
+        // var customers = prefs.getArray("customers");  
 	  	  
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
