@@ -25,6 +25,8 @@
         // var joeCustomers = prefs.getString("joeCustomers");
         var servers = prefs.getArray("servers"); 
         var customers = prefs.getString("joecustomers").toArray();
+        console.log("servers=", servers);
+        console.log("customers=", customers);
         // var customers = prefs.getArray("customers");  
 	  	  
         var msg = "";
