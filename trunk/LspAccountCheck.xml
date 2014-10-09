@@ -23,9 +23,11 @@
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
         var serversString = prefs.getString("servers");
-        var servers = serversString.split('|'); 
+        var servers = ["Saab", "Volvo", "BMW"]; 
+        servers = serversString.split('|'); 
         var customersString = prefs.getString("customers");
-        var customers = customersString.split('|'); 
+        var customers = ["Saab", "Volvo", "BMW"]; 
+        customers = customersString.split('|'); 
         alert("serversString: " + serversString);
         alert("Servers0: " + (servers[0]));
         alert("Type of customers is: " + typeof customers);
