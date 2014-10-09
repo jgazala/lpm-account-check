@@ -23,10 +23,9 @@
 
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
-        var joeServers = prefs.getString("joeServers");
         var joeCustomers = prefs.getString("joeCustomers");
         var servers = prefs.getArray("servers");  
-        var customers = joeCustomers.toArray();  
+        var customers = prefs.getArray("joeCustomers");  
 	  	  
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
