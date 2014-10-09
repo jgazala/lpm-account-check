@@ -131,7 +131,7 @@
        
       // Assemble the URL from its components using the user shortname entered
       function checkForAccount () {
-         var userName = document.getElementById('userName');
+         var userName = document.getElementById('userName').value.trim();
 		 // Make sure we have some real string for username
 		 if (userName.length == 0) {
            var html = "<p style='color:red'>&nbsp &nbsp <i><b>You must supply username</b></i></p>";
@@ -145,8 +145,8 @@
          var customer = document.getElementById('myCustomer');
 		 // typical request like: https://lsp.lexmark.com/lexmark/lsp-sso/users/jgazala/userId
 		 // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
-		 alert("https://" + server.value.trim() + url_part1.value.trim() + customer.value.trim() + url_part2.value.trim() + userName.value.trim() + url_part3.value.trim());
-         makeDOMRequest("https://" + server.value.trim() + url_part1.value.trim() + customer.value.trim() + url_part2.value.trim() + userName.value.trim() + url_part3.value.trim());
+		 alert("https://" + server.trim() + url_part1.trim() + customer.trim() + url_part2.trim() + userName.trim() + url_part3.trim());
+         makeDOMRequest("https://" + server.trim() + url_part1.trim() + customer.trim() + url_part2.trim() + userName.trim() + url_part3.trim());
       };
      </script>
 
