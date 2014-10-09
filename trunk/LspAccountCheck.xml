@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Module>
+  <ModulePrefs title="LPM SaaS Account Check" height="140" author="Joe Gazala" >
+    <Require feature="setprefs"/>
+  </ModulePrefs>
+  <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
+  <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
+  <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
+  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp|lsp2" />
+  <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="lexmark|big5corp|ziffcorp|tsc" />
+  
+  <Content type="html">
+  <![CDATA[
+     <script type="text/javascript">
+      // get prefs
+      var prefs = new gadgets.Prefs();
+
+	  String.prototype.trim = function(){
+	    return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      };
+
+	  function makeDropDowns() {
+        // Get the array of Servers and Customers entered by the admin
+        var servers = prefs.getArray("servers");  
+        var customers = prefs.getArray("customers");  
+	  	  
+        var msg = "";
+        // If the user has not added any servers or cusotmers, display message
+        if (servers.length == 0)
+        {
+          msg += "<p style='color:red'> &nbsp <b>Edit Server List (add servers)</b></p>";
+        }
+        else if (customers.length == 0)
+        {
+          msg += "<p style='color:red'> &nbsp <b>Edit Customer List (add customers)</b></p>";
+	    }
+        else {
+		  // Create the server drop down menu
+          msg += "<label for='myServer'> &nbsp <small><b>Select Server:</b></small></label> ";
+          msg += "  <select name='myServer' id='myServer'> ";
+          for (var i = 0; i < servers.length ; i++) {
+            var server = (servers[i]);
+		    msg += "    <option value='" + server + "'> " + server + " </option> ";
+          }
+          msg += "</select> <br>";
+		  
+		  // Create the customer drop down menu
+          msg += "<label for='myCustomer'> &nbsp <small><b>Select Customer:</b></small></label> ";
+          msg += "  <select name='myCustomer' id='myCustomer'> ";
+          for (var i = 0; i < customers.length ; i++) {
+            var customer = (customers[i]);
+	  	    msg += "    <option value='" + customer + "'> " + customer + " </option> ";
+          }
+          msg += "</select> <br>";
+        }
+	    // Put the Server and Customer selection on the webpage
+        document.getElementById('menu_div').innerHTML = msg;        	  
+      };
+
+      // Sumbit the URL request and get the XML response back
+      function makeDOMRequest(url) {    
+        var params = {};  
+		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+		params[gadgets.io.RequestParameters.HEADERS] = {"Accept":"text/xml"};
+		// params["CONTENT_TYPE"] = gadgets.io.ContentType.TEXT;
+		// params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+        gadgets.io.makeRequest(url, response, params);
+      };
+      
+      // When response is ready, parse it and show the results
+      // Take a username (shortname) and check if this user has an account
+      // on a certain LSP SaaS Instance (mycorp, qp, etc...)
+      function response(obj) {	  
+	    // alert(obj.text);   
+	    // alert(obj.data); 		
+        var domdata = obj.data;		
+        var html = "";
+		// Make sure we check if the link returned the right thing
+		if (domdata == null) {
+		  html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)!</b></i></p>";
+          document.getElementById('result_div').innerHTML = html;        
+		  return;
+        }
+        // Get a list of the <map> element nodes in the file
+        var itemList = domdata.getElementsByTagName("map");
+		
+        // Check if we get zero size item list, we have a problem!				
+		if (itemList.length == 0) {
+		  html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)</b></i></p>";
+          document.getElementById('result_div').innerHTML = html;        
+		  return;
+        }
+        // If Accept=text/xml set in the header, the response data coming back supposed to look like this:
+        // <map>
+        //   <entry key="success">true</entry>
+        //   <entry key="userId">jsmith@mycorp.com</entry>
+        // </map>
+        //
+        // For <map> node, get all child nodes (only one map node)
+        var nodeList = itemList.item(0).childNodes;
+        
+        // Loop through child nodes. Extract data from the text nodes 
+        for (var j = 0; j < nodeList.length ; j++) {
+          var node = nodeList.item(j);
+          if (node.nodeName == "entry")
+          {            
+            var key = node.getAttribute("key");
+            var value = node.firstChild.nodeValue;
+            // Append extracted data to the HTML string.
+            if (key == "success" && value == "false") {
+              html += "<p style='color:red'>&nbsp &nbsp <i><b>Account not found</b></i></p>";
+              break;
+            }
+            else if (key == "userId") {
+              html += "<p> &nbsp &nbsp <i><b>Account exists</b></i> (" + key + "=" + value + ")</p>";
+              break;
+            }
+            else {
+              // Not interested with this key/value
+            }
+          }
+          else {
+            // TODO: we have problem getting the right stuff!
+          }
+        }
+        document.getElementById('result_div').innerHTML = html;        
+      };
+       
+      // Assemble the URL from its components using the user shortname entered
+      function checkForAccount () {
+         var userName = document.getElementById('userName').value.trim();
+		 // Make sure we have some real string for username
+		 if (userName.length == 0) {
+           var html = "<p style='color:red'>&nbsp &nbsp <i><b>You must supply username</b></i></p>";
+           document.getElementById('result_div').innerHTML = html;        
+		   return;
+		 }
+         var url_part1 = prefs.getString("url_part1");
+         var url_part2 = prefs.getString("url_part2");
+         var url_part3 = prefs.getString("url_part3");
+         var server = document.getElementById('myServer').value;
+         var customer = document.getElementById('myCustomer').value;
+		 // typical request like: https://lsp.lexmark.com/lexmark/lsp-sso/users/jgazala/userId
+		 // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
+         makeDOMRequest("https://" + server + url_part1 + customer + url_part2 + userName + url_part3);
+      };
+     </script>
+
+	 <div id="menu_div"></div>
+     <div id="form">
+	   <script type="text/javascript">makeDropDowns();</script>
+       &nbsp <small><b>Enter Username:</b></small>
+       <INPUT TYPE="text" id="userName" VALUE=""/> <small>(ex: jsmith or jsmith@company.com)</small> <br> &nbsp
+       <INPUT TYPE="button" id="button" VALUE="Check Account" onclick="checkForAccount();"/>
+     </div>
+	 <div id="result_div"></div>
+  ]]>
+  </Content>
+</Module>
