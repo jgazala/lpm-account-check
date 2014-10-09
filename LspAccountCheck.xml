@@ -26,7 +26,7 @@
         var joeServers = prefs.getString("joeServers");
         var joeCustomers = prefs.getString("joeCustomers");
         var servers = prefs.getArray("servers");  
-        var customers = prefs.getArray(joeCustomers);  
+        var customers = joeCustomers.toArray();  
 	  	  
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
