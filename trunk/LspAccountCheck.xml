@@ -16,8 +16,8 @@
       // get prefs
       var prefs = new gadgets.Prefs();
 
-	  String.prototype.trim = function(){
-	    return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      String.prototype.trim = function(){
+        return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
       };
 
 	  function makeDropDowns() {
@@ -26,6 +26,10 @@
         var servers = serversString.split(','); 
         var customersString = prefs.getString("customers");
         var customers = customersString.split(','); 
+	  	alert("serversString: " + serversString);
+	  	alert("Servers: " + servers);
+	  	alert("customersString: " + customersString);
+	  	alert("Customers: " + customers);
 	  	
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
@@ -36,23 +40,23 @@
         else if (customers.length == 0)
         {
           msg += "<p style='color:red'> &nbsp <b>Edit Customer List (add customers)</b></p>";
-	    }
+        }
         else {
-		  // Create the server drop down menu
+          // Create the server drop down menu
           msg += "<label for='myServer'> &nbsp <small><b>Select Server:</b></small></label> ";
           msg += "  <select name='myServer' id='myServer'> ";
           for (var i = 0; i < servers.length ; i++) {
             var server = (servers[i]);
-		    msg += "    <option value='" + server + "'> " + server + " </option> ";
+            msg += "    <option value='" + server + "'> " + server + " </option> ";
           }
           msg += "</select> <br>";
 		  
-		  // Create the customer drop down menu
+          // Create the customer drop down menu
           msg += "<label for='myCustomer'> &nbsp <small><b>Select Customer:</b></small></label> ";
           msg += "  <select name='myCustomer' id='myCustomer'> ";
           for (var i = 0; i < customers.length ; i++) {
             var customer = (customers[i]);
-	  	    msg += "    <option value='" + customer + "'> " + customer + " </option> ";
+            msg += "    <option value='" + customer + "'> " + customer + " </option> ";
           }
           msg += "</select> <br>";
         }
@@ -63,10 +67,10 @@
       // Sumbit the URL request and get the XML response back
       function makeDOMRequest(url) {    
         var params = {};  
-		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
-		params[gadgets.io.RequestParameters.HEADERS] = {"Accept":"text/xml"};
-		// params["CONTENT_TYPE"] = gadgets.io.ContentType.TEXT;
-		// params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+        params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+        params[gadgets.io.RequestParameters.HEADERS] = {"Accept":"text/xml"};
+        // params["CONTENT_TYPE"] = gadgets.io.ContentType.TEXT;
+        // params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
         gadgets.io.makeRequest(url, response, params);
       };
       
@@ -74,24 +78,24 @@
       // Take a username (shortname) and check if this user has an account
       // on a certain LSP SaaS Instance (mycorp, qp, etc...)
       function response(obj) {	  
-	    // alert(obj.text);   
-	    // alert(obj.data); 		
+        // alert(obj.text);   
+        // alert(obj.data); 		
         var domdata = obj.data;		
         var html = "";
-		// Make sure we check if the link returned the right thing
-		if (domdata == null) {
-		  html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)!</b></i></p>";
+        // Make sure we check if the link returned the right thing
+        if (domdata == null) {
+          html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)!</b></i></p>";
           document.getElementById('result_div').innerHTML = html;        
-		  return;
+          return;
         }
         // Get a list of the <map> element nodes in the file
         var itemList = domdata.getElementsByTagName("map");
 		
         // Check if we get zero size item list, we have a problem!				
-		if (itemList.length == 0) {
-		  html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)</b></i></p>";
+        if (itemList.length == 0) {
+          html = "<p style='color:red'>&nbsp &nbsp <i><b>Incorrect Response (check Server/Customer)</b></i></p>";
           document.getElementById('result_div').innerHTML = html;        
-		  return;
+          return;
         }
         // If Accept=text/xml set in the header, the response data coming back supposed to look like this:
         // <map>
@@ -143,9 +147,8 @@
          var url_part3 = prefs.getString("url_part3");
          var server = document.getElementById('myServer');
          var customer = document.getElementById('myCustomer');
-		 // typical request like: https://lsp.lexmark.com/lexmark/lsp-sso/users/jgazala/userId
-		 // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
-		 alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3);
+         // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
+         alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3);
          makeDOMRequest("https://" + server + url_part1 + customer + url_part2 + userName + url_part3);
       };
      </script>
