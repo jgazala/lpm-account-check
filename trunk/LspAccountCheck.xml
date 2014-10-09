@@ -23,6 +23,7 @@
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
         var serversString = prefs.getString("servers");
+        alert("Code starting..." );
         var servers = ["Saab", "Volvo", "BMW"]; 
         servers = serversString.split('|'); 
         var customersString = prefs.getString("customers");
