@@ -28,6 +28,8 @@
         var customers = prefs.getArray("customers");
         var joe = prefs.getString("joe");  
 	  	alert("Joe Names are: " + joe);
+	  	var joeSplit = joe.split('|');
+	  	customers = joeSplit;
 	  	
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
