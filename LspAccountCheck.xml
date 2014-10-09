@@ -28,8 +28,8 @@
         var customers = customersString.split('|'); 
         alert("serversString: " + serversString);
         alert("Servers0: " + (servers[0]));
-        alert("Type of customers is: " typeof customers);
-        alert("Type of customersString is: " typeof customersString);
+        alert("Type of customers is: " + typeof customers);
+        alert("Type of customersString is: " + typeof customersString);
         alert("customersString: " + customersString);
         alert("Customer0: " + (customers[0]));
 	  	
@@ -138,12 +138,12 @@
       // Assemble the URL from its components using the user shortname entered
       function checkForAccount () {
          var userName = document.getElementById('userName').value.trim();
-		 // Make sure we have some real string for username
-		 if (userName.length == 0) {
+         // Make sure we have some real string for username
+         if (userName.length == 0) {
            var html = "<p style='color:red'>&nbsp &nbsp <i><b>You must supply username</b></i></p>";
            document.getElementById('result_div').innerHTML = html;        
-		   return;
-		 }
+           return;
+         }
          var url_part1 = prefs.getString("url_part1");
          var url_part2 = prefs.getString("url_part2");
          var url_part3 = prefs.getString("url_part3");
@@ -155,14 +155,14 @@
       };
      </script>
 
-	 <div id="menu_div"></div>
+     <div id="menu_div"></div>
      <div id="form">
-	   <script type="text/javascript">makeDropDowns();</script>
+       <script type="text/javascript">makeDropDowns();</script>
        &nbsp <small><b>Enter Username:</b></small>
        <INPUT TYPE="text" id="userName" VALUE=""/> <small>(ex: jsmith or jsmith@company.com)</small> <br> &nbsp
        <INPUT TYPE="button" id="button" VALUE="Check Account" onclick="checkForAccount();"/>
      </div>
-	 <div id="result_div"></div>
+     <div id="result_div"></div>
   ]]>
   </Content>
 </Module>
