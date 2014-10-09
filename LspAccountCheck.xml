@@ -26,10 +26,12 @@
         var servers = serversString.split('|'); 
         var customersString = prefs.getString("customers");
         var customers = customersString.split('|'); 
-	  	alert("serversString: " + serversString);
-	  	alert("Servers0: " + (servers[0]));
-	  	alert("customersString: " + customersString);
-	  	alert("Customer0: " + (customers[0]));
+        alert("serversString: " + serversString);
+        alert("Servers0: " + (servers[0]));
+        alert("Type of customers is: " typeof customers);
+        alert("Type of customersString is: " typeof customersString);
+        alert("customersString: " + customersString);
+        alert("Customer0: " + (customers[0]));
 	  	
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
