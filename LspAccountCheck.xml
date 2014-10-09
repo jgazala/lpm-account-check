@@ -27,9 +27,9 @@
         var customersString = prefs.getString("customers");
         var customers = customersString.split('|'); 
 	  	alert("serversString: " + serversString);
-	  	alert("Servers0: " + servers[0]);
+	  	alert("Servers0: " + (servers[0]));
 	  	alert("customersString: " + customersString);
-	  	alert("Customer0: " + customers[0]);
+	  	alert("Customer0: " + (customers[0]));
 	  	
         var msg = "";
         // If the user has not added any servers or cusotmers, display message
