@@ -145,6 +145,7 @@
          var customer = document.getElementById('myCustomer');
 		 // typical request like: https://lsp.lexmark.com/lexmark/lsp-sso/users/jgazala/userId
 		 // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
+		 alert("https://" + server.value.trim() + url_part1.value.trim() + customer.value.trim() + url_part2.value.trim() + userName.value.trim() + url_part3.value.trim());
          makeDOMRequest("https://" + server.value.trim() + url_part1.value.trim() + customer.value.trim() + url_part2.value.trim() + userName.value.trim() + url_part3.value.trim());
       };
      </script>
