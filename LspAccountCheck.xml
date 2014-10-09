@@ -7,16 +7,9 @@
   <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
   <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
-  <UserPref name="joeServers" display_name="Servers" datatype="string" required="true" default_value="lsp|lsp2" />
   <UserPref name="joeCustomers" display_name="Customers" datatype="string" required="true" default_value="lexmark|big5corp|ziffcorp|tsc" />
-  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp1|lsp3" />
+  <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp|lsp2" />
   <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="lexma|bcorp|zcorp|tc" />
-  <UserPref name="mycolor" display_name="Color" default_value="Pink" datatype="enum" >   
-      <EnumValue value="Blue" />
-      <EnumValue value="Yellow" />
-      <EnumValue value="Pink" />
-      <EnumValue value="Gray" />
-  </UserPref>
   
   <Content type="html">
   <![CDATA[
