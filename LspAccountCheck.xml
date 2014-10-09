@@ -7,6 +7,8 @@
   <UserPref name="url_part1" display_name="URL-First part" datatype="string" required="true" />
   <UserPref name="url_part2" display_name="URL-Middle part" datatype="string" required="true" />
   <UserPref name="url_part3" display_name="URL-Last part" datatype="string" required="true" default_value="/userId" />
+  <UserPref name="myServers" display_name="URL-Last part" datatype="list" required="true" default_value="lsp|lsp2" />
+  <UserPref name="myCustomers" display_name="URL-Last part" datatype="string" required="true" default_value="lexmark|big5corp|ziffcorp|tsc" />
   <UserPref name="servers" display_name="Servers" datatype="list" required="true" default_value="lsp|lsp2" />
   <UserPref name="customers" display_name="Customers" datatype="list" required="true" default_value="lexmark|big5corp|ziffcorp|tsc" />
   
