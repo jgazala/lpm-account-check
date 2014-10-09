@@ -22,7 +22,6 @@
 
 	  function makeDropDowns() {
         // Get the array of Servers and Customers entered by the admin
-        // var joeCustomers = prefs.getString("joeCustomers");
         var serversString = prefs.getString("servers");
         var servers = serversString.split(','); 
         var customersString = prefs.getString("customers");
@@ -132,7 +131,7 @@
        
       // Assemble the URL from its components using the user shortname entered
       function checkForAccount () {
-         var userName = document.getElementById('userName').value.trim();
+         var userName = document.getElementById('userName');
 		 // Make sure we have some real string for username
 		 if (userName.length == 0) {
            var html = "<p style='color:red'>&nbsp &nbsp <i><b>You must supply username</b></i></p>";
@@ -142,11 +141,11 @@
          var url_part1 = prefs.getString("url_part1");
          var url_part2 = prefs.getString("url_part2");
          var url_part3 = prefs.getString("url_part3");
-         var server = document.getElementById('myServer').value;
-         var customer = document.getElementById('myCustomer').value;
+         var server = document.getElementById('myServer');
+         var customer = document.getElementById('myCustomer');
 		 // typical request like: https://lsp.lexmark.com/lexmark/lsp-sso/users/jgazala/userId
 		 // alert("https://" + server + url_part1 + customer + url_part2 + userName + url_part3); 	
-         makeDOMRequest("https://" + server + url_part1 + customer + url_part2 + userName + url_part3);
+         makeDOMRequest("https://" + server.value.trim() + url_part1.value.trim() + customer.value.trim() + url_part2.value.trim() + userName.value.trim() + url_part3.value.trim());
       };
      </script>
 
